@@ -1,0 +1,60 @@
+.pong,
+.pong * {
+	position: absolute;
+}
+
+.pong {
+	width: 1280px;
+	height: 720px;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	box-shadow: 0 0 0 8px #666;
+	background: #111
+}
+
+.paddle {
+	width: 60px;
+	height: 240px;
+	left: 0;
+	top: 0;
+}
+.paddle-player {
+	background: hsl(130, 100%, 60%);
+}
+
+.paddle-enemy {
+	background: hsl(200, 100%, 60%);
+}
+
+.score {
+	font: bold 6em/1 'Roboto Mono', monospace;
+	top: 80px;
+}
+.score-player {
+	color: hsl(130, 100%, 60%);
+	left: 180px;
+}
+
+.score-enemy {
+	color: hsl(200, 100%, 60%);
+	right: 180px;
+}
+
+.net {
+	background: #666;
+	width: 4px;
+	height: 100%;
+	left: 50%;
+	top: 0;
+	margin-left: -2px;
+}
+.ball {
+	background: #fff;
+	width: 60px;
+	height: 60px;
+	left: 0;
+	top: 0;
+}
