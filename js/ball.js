@@ -1,8 +1,12 @@
+// window size
+var gameWidth = 1280;
+var gameHeight = 720;
+
 // ball size and move speed
 var ballWidth = 60;
-var	ballHeight = 60;
-var	ballSpeedStart = 16;
-var	ballSpeed = ballSpeedStart;
+var ballHeight = 60;
+var ballSpeedStart = 16;
+var ballSpeed = ballSpeedStart;
 
 var ball = {
 	// starting ball position and speed

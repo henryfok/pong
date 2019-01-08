@@ -1,11 +1,7 @@
-// window size
-var gameWidth = 1280;
-var	gameHeight = 720;
-
 // paddle size and move speed
 var paddleWidth = 60;
-var	paddleHeight = 240;
-var	paddleSpeed = 16;
+var paddleHeight = 240;
+var paddleSpeed = 16;
 
 var scoreMax = 5;
 
@@ -33,6 +29,42 @@ var paddleEnemy = {
 	moveDown: false
 };
 
+function addEventListeners() {
+	window.addEventListener('keydown', function(keycode) {
+		if (keycode.code === 'ArrowUp' || keycode.code === 'KeyW') {
+			paddlePlayer.moveUp = true;
+			// console.log('up');
+		}
+		if (keycode.code === 'ArrowDown' || keycode.code === 'KeyS') {
+			paddlePlayer.moveDown = true;
+			// console.log('down');
+		}
+	});
+
+	window.addEventListener('keyup', function(keycode) {
+		if (keycode.code === 'ArrowUp' || keycode.code === 'KeyW') { paddlePlayer.moveUp = false; }
+		if (keycode.code === 'ArrowDown' || keycode.code === 'KeyS') { paddlePlayer.moveDown = false; }
+	});
+}
+
+function movePlayer() {
+	if (paddlePlayer.moveUp) {
+		paddlePlayer.y -= paddlePlayer.speed;
+	} else if (paddlePlayer.moveDown) {
+		paddlePlayer.y += paddlePlayer.speed;
+	}
+}
+
+function containPaddles() {
+	// top
+	paddlePlayer.y = Math.max(0, paddlePlayer.y);
+	// bottom
+	paddlePlayer.y = Math.min(gameHeight - paddlePlayer.height, paddlePlayer.y);
+
+	paddleEnemy.y = Math.max(0, paddleEnemy.y);
+	paddleEnemy.y = Math.min(gameHeight - paddleEnemy.height, paddleEnemy.y);
+}
+
 var scorePlayer = {
 	elem: document.querySelector('.score-player'),
 	value: 0
@@ -44,6 +76,7 @@ var scoreEnemy = {
 };
 
 function init () {
+	addEventListeners();
 	loop();
 }
 
@@ -55,7 +88,9 @@ function loop () {
 
 function update () {
 	moveBall();
+	movePlayer();
 	containBall();
+	containPaddles()
 }
 
 function render () {
