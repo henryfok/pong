@@ -48,3 +48,15 @@ function containBall() {
 		ball.vx = -ball.vx;
 	}
 }
+
+function checkCollisions() {
+	if (aabbCollisionDetect(ball, paddlePlayer)) {
+		ball.x = paddlePlayer.x + paddlePlayer.width;
+		ball.vx = -ball.vx;
+	}
+
+	if (aabbCollisionDetect(ball, paddleEnemy)) {
+		ball.x = paddleEnemy.x - ball.width;
+		ball.vx = -ball.vx;
+	}
+}

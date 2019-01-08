@@ -108,6 +108,7 @@ function update () {
 	moveEnemy();
 	containBall();
 	containPaddles();
+	checkCollisions();
 }
 
 function render () {
