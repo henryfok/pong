@@ -40,12 +40,18 @@ function containBall() {
 
 	if (ball.x <= 0) {
 		// left wall of the ball hit the left border, reverse horizontal velocity (right)
-		ball.x = 0;
-		ball.vx = -ball.vx;
+		scoreAddOne(scoreEnemy);
+		// ball.ballSpeed += 1;
+		resetBall();
+		// ball.x = 0;
+		// ball.vx = -ball.vx;
 	} else if (ball.x + ball.width >= gameWidth) {
 		// right wall of the ball hit the right border, reverse horizontal velocity (left)
-		ball.x = gameWidth - ball.width;
-		ball.vx = -ball.vx;
+		scoreAddOne(scorePlayer);
+		// ball.ballSpeed += 1;
+		resetBall();
+		// ball.x = gameWidth - ball.width;
+		// ball.vx = -ball.vx;
 	}
 }
 
@@ -59,4 +65,15 @@ function checkCollisions() {
 		ball.x = paddleEnemy.x - ball.width;
 		ball.vx = -ball.vx;
 	}
+}
+
+function resetBall() {
+	ball.x = gameWidth / 2 - ballWidth / 2;
+	ball.y = gameHeight / 2 - ballHeight / 2;
+	ball.vx = 0;
+	ball.vy = 0;
+	setTimeout(function() {
+		ball.vx = ballSpeed;
+		ball.vy = ballSpeed;
+	}, 1000);
 }

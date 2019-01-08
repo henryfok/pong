@@ -81,15 +81,22 @@ function containPaddles() {
 	paddleEnemy.y = Math.min(gameHeight - paddleEnemy.height, paddleEnemy.y);
 }
 
-var scorePlayer = {
-	elem: document.querySelector('.score-player'),
-	value: 0
-};
+function checkWinState() {
+	if (scorePlayer.value === scoreMax) {
+		console.log('Player win');
+		resetGame();
+	} else if (scoreEnemy.value === scoreMax) {
+		console.log('Enemy win');
+		resetGame();
+	}
+}
 
-var scoreEnemy = {
-	elem: document.querySelector('.score-enemy'),
-	value: 0
-};
+function resetGame() {
+	ballSpeed = ballSpeedStart;
+	scorePlayer.value = 0;
+	scoreEnemy.value = 0;
+	resetBall();
+}
 
 function init () {
 	addEventListeners();
@@ -109,6 +116,7 @@ function update () {
 	containBall();
 	containPaddles();
 	checkCollisions();
+	checkWinState();
 }
 
 function render () {
