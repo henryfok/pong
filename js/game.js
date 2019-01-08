@@ -55,6 +55,22 @@ function movePlayer() {
 	}
 }
 
+function moveEnemy() {
+	paddleEnemy.moveUp = false;
+	paddleEnemy.moveDown = false;
+	if (ball.y + ballHeight < paddleEnemy.y + paddleEnemy.height / 2) {
+		paddleEnemy.moveUp = true;
+	} else if (ball.y > paddleEnemy.y + paddleEnemy.height / 2) {
+		paddleEnemy.moveDown = true;
+	}
+	
+	if (paddleEnemy.moveUp) {
+		paddleEnemy.y -= paddleEnemy.speed;
+	} else if (paddleEnemy.moveDown) {
+		paddleEnemy.y += paddleEnemy.speed;
+	}
+}
+
 function containPaddles() {
 	// top
 	paddlePlayer.y = Math.max(0, paddlePlayer.y);
@@ -89,8 +105,9 @@ function loop () {
 function update () {
 	moveBall();
 	movePlayer();
+	moveEnemy();
 	containBall();
-	containPaddles()
+	containPaddles();
 }
 
 function render () {
