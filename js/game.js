@@ -3,7 +3,7 @@ var paddleWidth = 60;
 var paddleHeight = 240;
 var paddleSpeed = 16;
 
-var scoreMax = 5;
+var scoreMax = 3;
 
 var paddlePlayer = {
 	// default player1 paddle position data
@@ -26,7 +26,8 @@ var paddleEnemy = {
 	height: paddleHeight,
 	speed: paddleSpeed,
 	moveUp: false,
-	moveDown: false
+	moveDown: false,
+	difficulty: 0.4
 };
 
 function addEventListeners() {
@@ -56,18 +57,20 @@ function movePlayer() {
 }
 
 function moveEnemy() {
-	paddleEnemy.moveUp = false;
-	paddleEnemy.moveDown = false;
-	if (ball.y + ballHeight < paddleEnemy.y + paddleEnemy.height / 2) {
-		paddleEnemy.moveUp = true;
-	} else if (ball.y > paddleEnemy.y + paddleEnemy.height / 2) {
-		paddleEnemy.moveDown = true;
-	}
-	
-	if (paddleEnemy.moveUp) {
-		paddleEnemy.y -= paddleEnemy.speed;
-	} else if (paddleEnemy.moveDown) {
-		paddleEnemy.y += paddleEnemy.speed;
+	if (Math.random() < paddleEnemy.difficulty) {
+		paddleEnemy.moveUp = false;
+		paddleEnemy.moveDown = false;
+		if (ball.y + ballHeight < paddleEnemy.y + paddleEnemy.height / 2) {
+			paddleEnemy.moveUp = true;
+		} else if (ball.y > paddleEnemy.y + paddleEnemy.height / 2) {
+			paddleEnemy.moveDown = true;
+		}
+		
+		if (paddleEnemy.moveUp) {
+			paddleEnemy.y -= paddleEnemy.speed;
+		} else if (paddleEnemy.moveDown) {
+			paddleEnemy.y += paddleEnemy.speed;
+		}
 	}
 }
 
@@ -92,24 +95,47 @@ function checkWinState() {
 }
 
 function resetGame() {
+	cancelAnimationFrame(loopReq);
 	ballSpeed = ballSpeedStart;
 	scorePlayer.value = 0;
 	scoreEnemy.value = 0;
-	resetBall();
+	stopBall();
+	init();
 }
 
-function init () {
+var gameStarted = false;
+
+function init() {
+	document.querySelector('.menu').style.visibility = 'visible';
+	gameStarted = false;
+	render();
+	window.addEventListener('keydown', function(keycode) {
+		if ((keycode.code === 'ArrowUp' || keycode.code === 'KeyW' ||
+			keycode.code === 'ArrowDown' || keycode.code === 'KeyS') && !gameStarted) {
+			start();
+		}
+	});
+}
+
+function start() {
+	console.log("start");
+	document.querySelector('.menu').style.visibility = 'hidden';
+	gameStarted = true;
 	addEventListeners();
+	startBall();
 	loop();
 }
 
-function loop () {
-	requestAnimationFrame(loop);
+var loopReq;
+
+function loop() {
+	loopReq = requestAnimationFrame(loop);
 	update();
 	render();
 }
 
-function update () {
+function update() {
+	console.log("update");
 	moveBall();
 	movePlayer();
 	moveEnemy();
@@ -119,7 +145,7 @@ function update () {
 	checkWinState();
 }
 
-function render () {
+function render() {
 	paddlePlayer.elem.style.transform =
 		'translate(' + paddlePlayer.x + 'px, ' + paddlePlayer.y + 'px)';
 
