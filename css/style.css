@@ -82,17 +82,17 @@ body {
 }
 
 .paddle {
-	width: 60px;
-	height: 240px;
+	width: 30px;
+	height: 120px;
 	left: 0;
 	top: 0;
 }
 .paddle-player {
-	background: hsl(130, 100%, 60%);
+	background: #33FF55;
 }
 
 .paddle-enemy {
-	background: hsl(200, 100%, 60%);
+	background: #33BBFF;
 }
 
 .score {
@@ -100,12 +100,12 @@ body {
 	top: 5px;
 }
 .score-player {
-	color: hsl(130, 100%, 60%);
+	color: #33FF55;
 	left: 560px;
 }
 
 .score-enemy {
-	color: hsl(200, 100%, 60%);
+	color: #33BBFF;
 	right: 560px;
 }
 

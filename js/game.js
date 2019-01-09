@@ -1,6 +1,6 @@
 // paddle size and move speed
-var paddleWidth = 60;
-var paddleHeight = 240;
+var paddleWidth = 30;
+var paddleHeight = 120;
 var paddleSpeed = 16;
 
 var scoreMax = 3;
@@ -154,6 +154,7 @@ function update() {
 	// console.log("update");
 	moveBall();
 	rotateBall();
+	demo.spawn(ball.x + ball.width/2, ball.y + ball.height/2);
 	// rotateScreen()
 	movePlayer();
 	moveEnemy();
