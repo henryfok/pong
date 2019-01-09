@@ -5,6 +5,22 @@ var paddleSpeed = 16;
 
 var scoreMax = 3;
 
+var screen = {
+	elem: document.querySelector('.pong'),
+	rx: 0,
+	ry: 0
+}
+
+function rotateScreen() {
+	screen.rx = scale(ball.y, 0, 720, -10, 10);
+	screen.ry = scale(ball.x, 0, 1280, -10, 10);
+	// console.log(screen.rx + ":" + screen.ry);
+}
+
+function scale(num, in_min, in_max, out_min, out_max) {
+	return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
 var paddlePlayer = {
 	// default player1 paddle position data
 	elem: document.querySelector('.paddle-player'),
@@ -135,8 +151,10 @@ function loop() {
 }
 
 function update() {
-	console.log("update");
+	// console.log("update");
 	moveBall();
+	rotateBall();
+	// rotateScreen()
 	movePlayer();
 	moveEnemy();
 	containBall();
@@ -147,13 +165,16 @@ function update() {
 
 function render() {
 	paddlePlayer.elem.style.transform =
-		'translate(' + paddlePlayer.x + 'px, ' + paddlePlayer.y + 'px)';
+		'translate3d(' + paddlePlayer.x + 'px, ' + paddlePlayer.y + 'px, 1px)';
 
 	paddleEnemy.elem.style.transform =
-		'translate(' + paddleEnemy.x + 'px, ' + paddleEnemy.y + 'px)';
+		'translate3d(' + paddleEnemy.x + 'px, ' + paddleEnemy.y + 'px, 1px)';
 
 	ball.elem.style.transform =
-		'translate(' + ball.x + 'px, ' + ball.y + 'px)';
+		'translate3d(' + ball.x + 'px, ' + ball.y + 'px, 2px) rotateZ(' + ball.r + 'deg)';
+
+	screen.elem.style.transform =
+		'scale(0.85) rotateX(' + screen.rx + 'deg) rotateY(' + screen.ry + 'deg)';
 
 	scorePlayer.elem.innerHTML = scorePlayer.value;
 	scoreEnemy.elem.innerHTML = scoreEnemy.value;

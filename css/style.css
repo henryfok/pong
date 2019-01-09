@@ -1,3 +1,7 @@
+body {
+	/*background: #111;*/
+}
+
 .pong,
 .pong * {
 	position: absolute;
@@ -93,16 +97,16 @@
 
 .score {
 	font: 6em/1 'Lato Black';
-	top: 80px;
+	top: 5px;
 }
 .score-player {
 	color: hsl(130, 100%, 60%);
-	left: 180px;
+	left: 560px;
 }
 
 .score-enemy {
 	color: hsl(200, 100%, 60%);
-	right: 180px;
+	right: 560px;
 }
 
 .net {

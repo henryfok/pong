@@ -7,6 +7,7 @@ var ballWidth = 60;
 var ballHeight = 60;
 var ballSpeedStart = 16;
 var ballSpeed = ballSpeedStart;
+var ballRotateSpeed = 3;
 
 var ball = {
 	// starting ball position and speed
@@ -17,6 +18,8 @@ var ball = {
 	y: gameHeight / 2 - ballHeight / 2,
 	vx: ballSpeed,
 	vy: ballSpeed,
+	r: 0,
+	vr: ballRotateSpeed,
 	width: ballWidth,
 	height: ballHeight
 };
@@ -34,6 +37,10 @@ function moveBall() {
 	// move ball location diagonally
 	ball.x += ball.vx;
 	ball.y += ball.vy;
+}
+
+function rotateBall() {
+	ball.r += ball.vr;
 }
 
 function containBall() {
@@ -72,11 +79,13 @@ function checkCollisions() {
 	if (aabbCollisionDetect(ball, paddlePlayer)) {
 		ball.x = paddlePlayer.x + paddlePlayer.width;
 		ball.vx = -ball.vx;
+		ball.vr = -ball.vr;
 	}
 
 	if (aabbCollisionDetect(ball, paddleEnemy)) {
 		ball.x = paddleEnemy.x - ball.width;
 		ball.vx = -ball.vx;
+		ball.vr = -ball.vr;
 	}
 }
 
@@ -85,9 +94,12 @@ function resetBall() {
 	ball.y = gameHeight / 2 - ballHeight / 2;
 	ball.vx = 0;
 	ball.vy = 0;
+	ball.r = 0;
+	ball.vr = 0;
 	setTimeout(function() {
 		ball.vx = ballSpeed;
 		ball.vy = ballSpeed;
+		ball.vr = ballRotateSpeed;
 	}, 1000);
 }
 
