@@ -3,9 +3,9 @@ var gameWidth = 1280;
 var gameHeight = 720;
 
 // ball size and move speed
-var ballWidth = 60;
-var ballHeight = 60;
-var ballSpeedStart = 16;
+var ballWidth = 30;
+var ballHeight = 30;
+var ballSpeedStart = 8;
 var ballSpeed = ballSpeedStart;
 var ballRotateSpeed = 3;
 
@@ -48,10 +48,12 @@ function containBall() {
 		// top wall of the ball hit the top border, reverse vertical velocity (down)
 		ball.y = 0;
 		ball.vy = -ball.vy;
+		playWallHitSound();
 	} else if (ball.y + ball.height >= gameHeight) {
 		// bottom wall of the ball hit the bottom border, reverse vertical velocity (up)
 		ball.y = gameHeight - ball.height;
 		ball.vy = -ball.vy;
+		playWallHitSound();
 	}
 
 	if (ball.x <= 0) {
@@ -59,6 +61,7 @@ function containBall() {
 		scoreAddOne(scoreEnemy);
 		// ball.ballSpeed += 1;
 		if (scoreEnemy.value !== scoreMax) {
+			playEnemyScoreSound();
 			resetBall();
 		}
 		// ball.x = 0;
@@ -68,6 +71,7 @@ function containBall() {
 		scoreAddOne(scorePlayer);
 		// ball.ballSpeed += 1;
 		if (scorePlayer.value !== scoreMax) {
+			playPlayerScoreSound();
 			resetBall();
 		}
 		// ball.x = gameWidth - ball.width;
@@ -80,12 +84,14 @@ function checkCollisions() {
 		ball.x = paddlePlayer.x + paddlePlayer.width;
 		ball.vx = -ball.vx;
 		ball.vr = -ball.vr;
+		playPaddleHitSound();
 	}
 
 	if (aabbCollisionDetect(ball, paddleEnemy)) {
 		ball.x = paddleEnemy.x - ball.width;
 		ball.vx = -ball.vx;
 		ball.vr = -ball.vr;
+		playPaddleHitSound();
 	}
 }
 

@@ -102,9 +102,11 @@ function containPaddles() {
 
 function checkWinState() {
 	if (scorePlayer.value === scoreMax) {
+		playPlayerWinSound();
 		console.log('Player win');
 		resetGame();
 	} else if (scoreEnemy.value === scoreMax) {
+		playEnemyWinSound();
 		console.log('Enemy win');
 		resetGame();
 	}
@@ -123,6 +125,7 @@ var gameStarted = false;
 
 function init() {
 	document.querySelector('.menu').style.visibility = 'visible';
+	playMusic();
 	gameStarted = false;
 	render();
 	window.addEventListener('keydown', function(keycode) {
@@ -136,6 +139,7 @@ function init() {
 function start() {
 	console.log("start");
 	document.querySelector('.menu').style.visibility = 'hidden';
+	lowerVolMusic();
 	gameStarted = true;
 	addEventListeners();
 	startBall();
@@ -154,7 +158,7 @@ function update() {
 	// console.log("update");
 	moveBall();
 	rotateBall();
-	demo.spawn(ball.x + ball.width/2, ball.y + ball.height/2);
+	ballParticles.spawn(ball.x + ball.width/2, ball.y + ball.height/2);
 	// rotateScreen()
 	movePlayer();
 	moveEnemy();

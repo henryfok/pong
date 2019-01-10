@@ -61,7 +61,7 @@ var COLOURS = [ '#33FF55', '#33BBFF', '#FFFFFF' ];
 var particles = [];
 var pool = [];
 
-var demo = Sketch.create({
+var ballParticles = Sketch.create({
 	fullscreen: false,
 	width: 1280,
 	height: 720,
@@ -69,17 +69,17 @@ var demo = Sketch.create({
 	retina: 'auto'
 });
 
-// demo.setup = function() {
+// ballParticles.setup = function() {
 // 	// Set off some initial particles.
 // 	var i, x, y;
 // 	for ( i = 0; i < 20; i++ ) {
-// 		x = ( demo.width * 0.5 ) + random( -100, 100 );
-// 		y = ( demo.height * 0.5 ) + random( -100, 100 );
-// 		demo.spawn( x, y );
+// 		x = ( ballParticles.width * 0.5 ) + random( -100, 100 );
+// 		y = ( ballParticles.height * 0.5 ) + random( -100, 100 );
+// 		ballParticles.spawn( x, y );
 // 	}
 // };
 
-demo.spawn = function( x, y ) {
+ballParticles.spawn = function( x, y ) {
 	var particle, theta, force;
 	if ( particles.length >= MAX_PARTICLES ) {
 		pool.push( particles.shift() );
@@ -102,7 +102,7 @@ demo.spawn = function( x, y ) {
 };
 
 // removes particles
-demo.update = function() {
+ballParticles.update = function() {
 	var i, particle;
 	for ( i = particles.length - 1; i >= 0; i-- ) {
 		particle = particles[i];
@@ -112,19 +112,19 @@ demo.update = function() {
 };
 
 // draws particles
-demo.draw = function() {
-	demo.globalCompositeOperation  = 'lighter';
+ballParticles.draw = function() {
+	ballParticles.globalCompositeOperation  = 'lighter';
 	for ( var i = particles.length - 1; i >= 0; i-- ) {
-		particles[i].draw( demo );
+		particles[i].draw( ballParticles );
 	}
 };
 
-// demo.mousemove = function() {
+// ballParticles.mousemove = function() {
 // 	var particle, theta, force, touch, max, i, j, n;
-// 	for ( i = 0, n = demo.touches.length; i < n; i++ ) {
-// 		touch = demo.touches[i], max = random( 1, 4 );
+// 	for ( i = 0, n = ballParticles.touches.length; i < n; i++ ) {
+// 		touch = ballParticles.touches[i], max = random( 1, 4 );
 // 		for ( j = 0; j < max; j++ ) {
-// 			demo.spawn( touch.x, touch.y );
+// 			ballParticles.spawn( touch.x, touch.y );
 // 		}
 // 	}
 // };
