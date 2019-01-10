@@ -30,6 +30,7 @@ body {
 	left: 22.7%;
 	padding: 2rem 4rem;
 	top: 15%;
+	z-index: 1;
 }
 
 .menu-title {

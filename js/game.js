@@ -1,8 +1,3 @@
-// paddle size and move speed
-var paddleWidth = 30;
-var paddleHeight = 120;
-var paddleSpeed = 16;
-
 var scoreMax = 3;
 
 var screen = {
@@ -12,39 +7,10 @@ var screen = {
 }
 
 function rotateScreen() {
-	screen.rx = scale(ball.y, 0, 720, -10, 10);
-	screen.ry = scale(ball.x, 0, 1280, -10, 10);
+	screen.rx = scale(ball.y, 0, 720, -15, 15);
+	screen.ry = scale(ball.x, 0, 1280, -15, 15);
 	// console.log(screen.rx + ":" + screen.ry);
 }
-
-function scale(num, in_min, in_max, out_min, out_max) {
-	return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-}
-
-var paddlePlayer = {
-	// default player1 paddle position data
-	elem: document.querySelector('.paddle-player'),
-	x: 0,
-	y: gameHeight / 2 - paddleHeight / 2,
-	width: paddleWidth,
-	height: paddleHeight,
-	speed: paddleSpeed,
-	moveUp: false,
-	moveDown: false
-};
-
-var paddleEnemy = {
-	// default player2 paddle position data
-	elem: document.querySelector('.paddle-enemy'),
-	x: gameWidth - paddleWidth,
-	y: gameHeight / 2 - paddleHeight / 2,
-	width: paddleWidth,
-	height: paddleHeight,
-	speed: paddleSpeed,
-	moveUp: false,
-	moveDown: false,
-	difficulty: 0.5
-};
 
 function addEventListeners() {
 	window.addEventListener('keydown', function(keycode) {
@@ -73,7 +39,7 @@ function movePlayer() {
 }
 
 function moveEnemy() {
-	if (Math.random() < paddleEnemy.difficulty) {
+	if ((Math.random() < paddleEnemy.difficulty) && !paddleEnemy.hasHit) {
 		paddleEnemy.moveUp = false;
 		paddleEnemy.moveDown = false;
 		if (ball.y + ballHeight < paddleEnemy.y + paddleEnemy.height / 2) {
@@ -138,10 +104,20 @@ function init() {
 			start();
 		}
 	});
+	preGame();
+}
+
+var preGameReq;
+
+function preGame() {
+	ballParticles.spawn(Math.floor(Math.random() * gameWidth), Math.floor(Math.random() * gameHeight));
+	preGameReq = requestAnimationFrame(preGame);
+	
 }
 
 function start() {
 	console.log("start");
+	cancelAnimationFrame(preGameReq);
 	document.querySelector('.menu').style.visibility = 'hidden';
 	lowerVolMusic();
 	gameStarted = true;
@@ -162,8 +138,7 @@ function update() {
 	// console.log("update");
 	moveBall();
 	rotateBall();
-	ballParticles.spawn(ball.x + ball.width/2, ball.y + ball.height/2);
-	// rotateScreen()
+	// rotateScreen();
 	movePlayer();
 	moveEnemy();
 	containBall();
