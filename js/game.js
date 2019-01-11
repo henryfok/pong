@@ -104,14 +104,14 @@ function init() {
 			start();
 		}
 	});
-	preGame();
+	preGameParticles();
 }
 
 var preGameReq;
 
-function preGame() {
+function preGameParticles() {
 	ballParticles.spawn(Math.floor(Math.random() * gameWidth), Math.floor(Math.random() * gameHeight));
-	preGameReq = requestAnimationFrame(preGame);
+	preGameReq = requestAnimationFrame(preGameParticles);
 	
 }
 

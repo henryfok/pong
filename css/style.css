@@ -1,5 +1,5 @@
 body {
-	/*background: #111;*/
+	background: #111;
 }
 
 .pong,
@@ -34,11 +34,11 @@ body {
 }
 
 .menu-title {
-	font: 10em/1 'Lato Black';
-	font-size: 10em;
+	font-family: 'Lato', sans-serif;
 	font-weight: 900;
-	letter-spacing: -.025em;
+	font-size: 10em;
 	line-height: 1;
+	letter-spacing: -.025em;
 	margin-bottom: 6rem;
 	position: static;
 }
@@ -65,7 +65,8 @@ body {
 }
 
 .control-icon, .control-action {
-	font: 3em/1 'Lato Black';
+	font-family: 'Lato', sans-serif;
+	font-size: 3em;
 	line-height: 1;
 	position: static;
 }
@@ -97,7 +98,10 @@ body {
 }
 
 .score {
-	font: 6em/1 'Lato Black';
+	font-family: 'Lato', sans-serif;
+	font-weight: 900;
+	font-size: 6em;
+	line-height: 1;
 	top: 5px;
 }
 .score-player {
