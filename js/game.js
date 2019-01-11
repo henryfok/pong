@@ -68,22 +68,42 @@ function containPaddles() {
 
 function checkWinState() {
 	if (scorePlayer.value === scoreMax) {
-		playPlayerWinSound();
 		console.log('Player win');
-		resetGame();
+		playPlayerWinSound();
+		cancelAnimationFrame(loopReq);
+		stopBall();
+		
+		document.querySelector('.results-title').innerHTML = "You win!";
+		document.querySelector('.results-title').style.color = "#33FF55";
+		document.querySelector('.results-player').innerHTML = scorePlayer.value;
+		document.querySelector('.results-enemy').innerHTML = scoreEnemy.value;
+		document.querySelector('.results').style.visibility = 'visible';
+
+		setTimeout(function() {
+			resetGame();
+		}, 3000);
 	} else if (scoreEnemy.value === scoreMax) {
-		playEnemyWinSound();
 		console.log('Enemy win');
-		resetGame();
+		playEnemyWinSound();
+		cancelAnimationFrame(loopReq);
+		stopBall();
+		
+		document.querySelector('.results-title').innerHTML = "You lose";
+		document.querySelector('.results-title').style.color = "#33BBFF";
+		document.querySelector('.results-player').innerHTML = scorePlayer.value;
+		document.querySelector('.results-enemy').innerHTML = scoreEnemy.value;
+		document.querySelector('.results').style.visibility = 'visible';
+		
+		setTimeout(function() {
+			resetGame();
+		}, 3000);
 	}
 }
 
 function resetGame() {
-	cancelAnimationFrame(loopReq);
 	ballSpeed = ballSpeedStart;
 	scorePlayer.value = 0;
 	scoreEnemy.value = 0;
-	stopBall();
 	init();
 }
 
@@ -91,6 +111,7 @@ var gameStarted = false;
 var musicStarted = false;
 
 function init() {
+	document.querySelector('.results').style.visibility = 'hidden';
 	document.querySelector('.menu').style.visibility = 'visible';
 	if (!musicStarted) {
 		musicStarted = true;
