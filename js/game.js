@@ -77,8 +77,9 @@ function checkWinState() {
 		document.querySelector('.results-title').style.color = "#33FF55";
 		document.querySelector('.results-player').innerHTML = scorePlayer.value;
 		document.querySelector('.results-enemy').innerHTML = scoreEnemy.value;
-		document.querySelector('.results').style.visibility = 'visible';
-
+		
+		showResults();
+		
 		setTimeout(function() {
 			resetGame();
 		}, 3000);
@@ -92,12 +93,19 @@ function checkWinState() {
 		document.querySelector('.results-title').style.color = "#33BBFF";
 		document.querySelector('.results-player').innerHTML = scorePlayer.value;
 		document.querySelector('.results-enemy').innerHTML = scoreEnemy.value;
-		document.querySelector('.results').style.visibility = 'visible';
+		
+		showResults();
 		
 		setTimeout(function() {
 			resetGame();
 		}, 3000);
 	}
+}
+
+function showResults() {
+	document.querySelector('.results').style.visibility = 'visible';
+	$('.results').velocity({ opacity: 1 }, "easeInSine");
+	$('.results').velocity({ opacity: 0 }, { delay: 2000 }, "easeOutSine");
 }
 
 function resetGame() {
@@ -112,6 +120,7 @@ var musicStarted = false;
 
 function init() {
 	document.querySelector('.results').style.visibility = 'hidden';
+	$('.results').css({ opacity: 0 });
 	document.querySelector('.menu').style.visibility = 'visible';
 	if (!musicStarted) {
 		musicStarted = true;
