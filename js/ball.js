@@ -55,16 +55,19 @@ function containBall() {
 		ball.y = 0;
 		ball.vy = -ball.vy;
 		playWallHitSound();
+		flashElement('.wall-top');
 	} else if (ball.y + ball.height >= gameHeight) {
 		// bottom wall of the ball hit the bottom border, reverse vertical velocity (up)
 		ball.y = gameHeight - ball.height;
 		ball.vy = -ball.vy;
 		playWallHitSound();
+		flashElement('.wall-bottom');
 	}
 
 	if (ball.x <= 0) {
 		// left wall of the ball hit the left border, reverse horizontal velocity (right)
 		scoreAddOne(scoreEnemy);
+		flashElement('.wall-left');
 		// ball.ballSpeed += 1;
 		if (scoreEnemy.value !== scoreMax) {
 			playEnemyScoreSound();
@@ -75,6 +78,7 @@ function containBall() {
 	} else if (ball.x + ball.width >= gameWidth) {
 		// right wall of the ball hit the right border, reverse horizontal velocity (left)
 		scoreAddOne(scorePlayer);
+		flashElement('.wall-right');
 		// ball.ballSpeed += 1;
 		if (scorePlayer.value !== scoreMax) {
 			playPlayerScoreSound();
@@ -109,6 +113,7 @@ function checkCollisions() {
 			ball.vy = 0;
 		}
 		playPaddleHitSound();
+		flashPaddle('.paddle-player');
 	}
 
 	if (aabbCollisionDetect(ball, paddleEnemy)) {
@@ -131,6 +136,7 @@ function checkCollisions() {
 			ball.vy = 0;
 		}
 		playPaddleHitSound();
+		flashPaddle('.paddle-enemy');
 	}
 }
 

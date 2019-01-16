@@ -164,6 +164,54 @@ body {
 	right: 560px;
 }
 
+@keyframes flash-wall {
+	0% {
+	opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+.wall {
+	background: #fff;
+	opacity: 0;
+	transition-property: opacity, transform;
+	transition-duration: 0.1s;
+	transition-timing-function: cubic-bezier(0.25, 1, 0.25, 1);
+}
+
+.wall-top {
+	height: 8px;
+	top: -8px;
+	left: -8px;
+	right: -8px;
+}
+
+.wall-bottom {
+	height: 8px;
+	bottom: -8px;
+	left: -8px;
+	right: -8px;
+}
+
+.wall-left {
+	width: 8px;
+	top: -8px;
+	bottom: -8px;
+	left: -8px;
+}
+
+.wall-right {
+	width: 8px;
+	top: -8px;
+	bottom: -8px;
+	right: -8px;
+}
+
 .net {
 	background: #666;
 	width: 4px;

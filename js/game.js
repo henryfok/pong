@@ -188,7 +188,7 @@ function render() {
 		'translate3d(' + ball.x + 'px, ' + ball.y + 'px, 2px) rotateZ(' + ball.r + 'deg)';
 
 	screen.elem.style.transform =
-		'scale(0.85) rotateX(' + screen.rx + 'deg) rotateY(' + screen.ry + 'deg)';
+		'scale(1) rotateX(' + screen.rx + 'deg) rotateY(' + screen.ry + 'deg)';
 
 	scorePlayer.elem.innerHTML = scorePlayer.value;
 	scoreEnemy.elem.innerHTML = scoreEnemy.value;

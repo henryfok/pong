@@ -54,9 +54,9 @@ Particle.prototype = {
 // Config
 // ----------------------------------------
 
-var MAX_PARTICLES = 280;
+var MAX_PARTICLES = 200;
 // var COLOURS = [ '#69D2E7', '#A7DBD8', '#E0E4CC', '#F38630', '#FA6900', '#FF4E50', '#F9D423' ];
-var COLOURS = [ '#33FF55', '#33BBFF', '#FFFFFF' ];
+var COLOURS = [ '#33FF55', '#33BBFF', '#FF333F' ];
 
 var particles = [];
 var pool = [];
@@ -92,7 +92,8 @@ ballParticles.spawn = function( x, y ) {
 	particle.color = random( COLOURS );
 	particle.drag = random( 0.9, 0.99 );
 
-	theta = random( TWO_PI );
+	theta = random( TWO_PI / 2 );
+	// particle min/max move speed
 	force = random( 2, 8 );
 
 	particle.vx = sin( theta ) * force;
