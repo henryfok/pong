@@ -139,12 +139,75 @@ body {
 	left: 0;
 	top: 0;
 }
+
 .paddle-player {
 	background: #33FF55;
+	position: absolute;
+	transform-style: preserve-3d;
+	perspective: 100px;
+	perspective-origin: 250% 50%;
+}
+
+.paddle-face {
+	opacity: 0.6;
+	border: 0.1px solid #fff;
+	background-clip: border-box
+	background: #FFF;
+	color: white;
+	font-size: 150%;
+}
+
+.paddle-face-top {
+	background: red;
+	width: 30px;
+	height: 30px;
+	left: 0;
+	top: 0;
+	transform: rotateX(90deg) translateZ(15px);
+}
+
+.paddle-face-bottom {
+	background: orange;
+	width: 30px;
+	height: 30px;
+	left: 0;
+	top: 0;
+	transform: rotateX(-90deg) translateZ(105px);
+}
+
+.paddle-face-right-side {
+	background: blue;
+	width: 30px;
+	height: 120px;
+	left: 0;
+	top: 0;
+	transform: rotateY(90deg) translateZ(15px);
+}
+
+.paddle-face-left-side {
+	background: blue;
+	width: 30px;
+	height: 120px;
+	left: 0;
+	top: 0;
+	transform: rotateY(-90deg) translateZ(15px);
+}
+
+.paddle-face-front {
+	background: purple;
+	width: 30px;
+	height: 120px;
+	left: 0;
+	top: 0;
+	transform: translateZ(15px);
 }
 
 .paddle-enemy {
 	background: #33BBFF;
+	position: absolute;
+	transform-style: preserve-3d;
+	perspective: 100px;
+	perspective-origin: -250% 50%;
 }
 
 .score {
@@ -154,6 +217,7 @@ body {
 	line-height: 1;
 	top: 5px;
 }
+
 .score-player {
 	color: #33FF55;
 	left: 560px;

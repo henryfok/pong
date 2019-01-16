@@ -6,6 +6,7 @@ TODO:
 - [ ] Paddle acceleration physics
 - [x] Ball cube rotation
 - [x] Visual collision feedback
-- [ ] 3D, screenshake
+- [x] 3D elements
+- [ ] Screenshake
 - [x] Particles, music, sound
 - [ ] Multiplayer?
