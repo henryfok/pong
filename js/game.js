@@ -269,6 +269,7 @@ function update() {
 	// rotateScreen();
 	movePlayer();
 	chargeSpike();
+	paddleSpike();
 	moveEnemy();
 	updatePaddlePOV();
 	containBall();

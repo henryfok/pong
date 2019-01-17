@@ -20,15 +20,3 @@ function flashElement(wallEl) {
 		document.querySelector(wallEl).style.opacity = 0;
 	}, 100);
 }
-
-function flashPaddle(paddleEl) {
-	var colour = document.querySelector(paddleEl).style.background;
-	// document.querySelector(paddleEl).style.transitionTimingFunction = "cubic-bezier(0.25, 1, 0.25, 1)";
-	// document.querySelector(paddleEl).style.transitionDuration = "0.1s"
-	document.querySelector(paddleEl).style.background = '#FFF';
-	setTimeout(function() {
-		// document.querySelector(paddleEl).style.transitionTimingFunction = "linear";
-		// document.querySelector(paddleEl).style.transitionDuration = "0.5s"
-		document.querySelector(paddleEl).style.background = colour;
-	}, 100);
-}

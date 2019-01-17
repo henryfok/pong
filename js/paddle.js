@@ -18,8 +18,10 @@ var paddlePlayer = {
 	moveUp: false,
 	moveDown: false,
 	hasHit: false,
+	spike: false,
 	charging: false,
-	spikeCharge: 0
+	spikeCharge: 0,
+	spikeSpeed: 25
 };
 
 var paddleEnemy = {
@@ -36,6 +38,18 @@ var paddleEnemy = {
 	hasHit: false
 };
 
+function flashPaddle(paddleEl) {
+	var colour = document.querySelector(paddleEl).style.background;
+	// document.querySelector(paddleEl).style.transitionTimingFunction = "cubic-bezier(0.25, 1, 0.25, 1)";
+	// document.querySelector(paddleEl).style.transitionDuration = "0.1s"
+	document.querySelector(paddleEl).style.background = '#FFF';
+	setTimeout(function() {
+		// document.querySelector(paddleEl).style.transitionTimingFunction = "linear";
+		// document.querySelector(paddleEl).style.transitionDuration = "0.5s"
+		document.querySelector(paddleEl).style.background = colour;
+	}, 100);
+}
+
 function updatePaddlePOV() {
 	var newPlayerPOV = scale(paddlePlayer.y, 0, (gameHeight - paddleHeight), -20, 120);
 	var newEnemyPOV = scale(paddleEnemy.y, 0, (gameHeight - paddleHeight), -20, 120);
@@ -47,4 +61,18 @@ function updatePaddlePOV() {
 function dischargeSpike() {
 	paddlePlayer.spikeCharge = 0;
 	document.querySelector('.spike-charge').style.transform = 'scaleX(' + paddlePlayer.spikeCharge + ')';
+}
+
+function paddleSpike() {
+	if (paddlePlayer.charging === false && paddlePlayer.spikeCharge > 0.8 && paddlePlayer.x < 100) {
+		paddlePlayer.x += 25;
+		if (paddlePlayer.spikeCharge > 0.8) {
+			paddlePlayer.spike = true;
+		}
+	} else if (paddlePlayer.x > 0) {
+		paddlePlayer.x -= 25;
+		if (paddlePlayer.x < 50) {
+			paddlePlayer.spike = false;
+		}
+	}
 }
