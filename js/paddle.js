@@ -33,3 +33,11 @@ var paddleEnemy = {
 	difficulty: 0.6,
 	hasHit: false
 };
+
+function updatePaddlePOV() {
+	var newPlayerPOV = scale(paddlePlayer.y, 0, (gameHeight - paddleHeight), -20, 120);
+	var newEnemyPOV = scale(paddleEnemy.y, 0, (gameHeight - paddleHeight), -20, 120);
+	paddlePlayer.elem.style.perspectiveOrigin = '200% ' + newPlayerPOV + '%';
+	paddleEnemy.elem.style.perspectiveOrigin = '-200% ' + newEnemyPOV + '%';
+
+}

@@ -171,6 +171,7 @@ function update() {
 	// rotateScreen();
 	movePlayer();
 	moveEnemy();
+	updatePaddlePOV();
 	containBall();
 	containPaddles();
 	checkCollisions();
