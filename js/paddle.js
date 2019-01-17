@@ -17,7 +17,9 @@ var paddlePlayer = {
 	speed: paddleSpeed,
 	moveUp: false,
 	moveDown: false,
-	hasHit: false
+	hasHit: false,
+	charging: false,
+	spikeCharge: 0
 };
 
 var paddleEnemy = {
@@ -38,6 +40,11 @@ function updatePaddlePOV() {
 	var newPlayerPOV = scale(paddlePlayer.y, 0, (gameHeight - paddleHeight), -20, 120);
 	var newEnemyPOV = scale(paddleEnemy.y, 0, (gameHeight - paddleHeight), -20, 120);
 	paddlePlayer.elem.style.perspectiveOrigin = '200% ' + newPlayerPOV + '%';
-	paddleEnemy.elem.style.perspectiveOrigin = '-200% ' + newEnemyPOV + '%';
+	paddleEnemy.elem.style.perspectiveOrigin = '-100% ' + newEnemyPOV + '%';
 
+}
+
+function dischargeSpike() {
+	paddlePlayer.spikeCharge = 0;
+	document.querySelector('.spike-charge').style.transform = 'scaleX(' + paddlePlayer.spikeCharge + ')';
 }

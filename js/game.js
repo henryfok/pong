@@ -6,28 +6,126 @@ var screen = {
 	ry: 0
 }
 
+var keyPressed = {32: false, 38: false, 40: false};
+
 function rotateScreen() {
 	screen.rx = scale(ball.y, 0, 720, -15, 15);
 	screen.ry = scale(ball.x, 0, 1280, -15, 15);
 	// console.log(screen.rx + ":" + screen.ry);
 }
 
+// KeyW 87 / ArrowUp 38
+// KeyS 83 / ArrowDown 40
+// Space 32
+
 function addEventListeners() {
+	// window.addEventListener('keydown', function(keycode) {
+	// 	if (keycode.code === 'ArrowUp' || keycode.code === 'KeyW') { paddlePlayer.moveUp = true; }
+	// 	if (keycode.code === 'ArrowDown' || keycode.code === 'KeyS') { paddlePlayer.moveDown = true; }
+	// 	if (keycode.code === 'Space') { chargeSpike(); }
+	// });
+
+	// window.addEventListener('keyup', function(keycode) {
+	// 	if (keycode.code === 'ArrowUp' || keycode.code === 'KeyW') { paddlePlayer.moveUp = false; }
+	// 	if (keycode.code === 'ArrowDown' || keycode.code === 'KeyS') { paddlePlayer.moveDown = false; }
+	// 	if (keycode.code === 'Space') { dischargeSpike(); }
+	// });
+
 	window.addEventListener('keydown', function(keycode) {
-		if (keycode.code === 'ArrowUp' || keycode.code === 'KeyW') {
+		// console.log('down!');
+		keyPressed[keycode.keyCode] = true;
+		if (keyPressed[38]) {
 			paddlePlayer.moveUp = true;
-			// console.log('up');
 		}
-		if (keycode.code === 'ArrowDown' || keycode.code === 'KeyS') {
+		if (keyPressed[40]) {
 			paddlePlayer.moveDown = true;
-			// console.log('down');
+		}
+		if (keyPressed[32]) {
+			paddlePlayer.charging = true;
+		}
+		if (keyPressed[38] && keyPressed[32]) {
+			paddlePlayer.moveUp = true;
+			paddlePlayer.charging = true;
+		}
+		if (keyPressed[40] && keyPressed[32]) {
+			paddlePlayer.moveDown = true;
+			paddlePlayer.charging = true;
 		}
 	});
 
 	window.addEventListener('keyup', function(keycode) {
-		if (keycode.code === 'ArrowUp' || keycode.code === 'KeyW') { paddlePlayer.moveUp = false; }
-		if (keycode.code === 'ArrowDown' || keycode.code === 'KeyS') { paddlePlayer.moveDown = false; }
+		// console.log('up!');
+		keyPressed[keycode.keyCode] = false;
+		if (!keyPressed[38]) {
+			paddlePlayer.moveUp = false;
+		}
+		if (!keyPressed[40]) {
+			paddlePlayer.moveDown = false;
+		}
+		if (!keyPressed[32]) {
+			paddlePlayer.charging = false;
+		}
+		if (keyPressed[32]) {
+			paddlePlayer.charging = true;
+		}
 	});
+
+	// $("body").keydown(function(keycode) {
+	// 	console.log('down!');
+	// 	keyPressed[keycode.keyCode] = true;
+	// 	if (keyPressed[38]) {
+	// 		paddlePlayer.moveUp = true;
+	// 	}
+	// 	if (keyPressed[40]) {
+	// 		paddlePlayer.moveDown = true;
+	// 	}
+	// 	if (keyPressed[32]) {
+	// 		chargeSpike();
+	// 	}
+	// 	if (keyPressed[38] && keyPressed[32]) {
+	// 		paddlePlayer.moveUp = true;
+	// 		chargeSpike();
+	// 	}
+	// 	if (keyPressed[40] && keyPressed[32]) {
+	// 		paddlePlayer.moveDown = true;
+	// 		chargeSpike();
+	// 	}
+	// }).keyup(function(keycode) {
+	// 	console.log('up!');
+	// 	keyPressed[keycode.keyCode] = false;
+	// 	if (!keyPressed[38]) {
+	// 		paddlePlayer.moveUp = false;
+	// 	}
+	// 	if (!keyPressed[40]) {
+	// 		paddlePlayer.moveDown = false;
+	// 	}
+	// 	if (!keyPressed[32]) {
+	// 		dischargeSpike();
+	// 	}
+	// 	// if (!keyPressed[38] && keyPressed[32]) {
+	// 	// 	paddlePlayer.moveUp = false;
+	// 	// 	chargeSpike();
+	// 	// }
+	// 	// if (!keyPressed[40] && keyPressed[32]) {
+	// 	// 	paddlePlayer.moveDown = false;
+	// 	// 	chargeSpike();
+	// 	// }
+	// 	// if (!keyPressed[38] && !keyPressed[40] && keyPressed[32]) {
+	// 	// 	paddlePlayer.moveUp = false;
+	// 	// 	paddlePlayer.moveDown = false;
+	// 	// 	chargeSpike();
+	// 	// }
+	// });
+}
+
+function chargeSpike() {
+	if (paddlePlayer.charging === true && paddlePlayer.spikeCharge < 1) {
+		paddlePlayer.spikeCharge += 0.01;
+		document.querySelector('.spike-charge').style.transform = 'scaleX(' + paddlePlayer.spikeCharge + ')';
+	} else if (paddlePlayer.charging === false && paddlePlayer.spikeCharge > 0) {
+		paddlePlayer.spikeCharge -= 0.05;;
+		document.querySelector('.spike-charge').style.transform = 'scaleX(' + paddlePlayer.spikeCharge + ')';
+	}
 }
 
 function movePlayer() {
@@ -170,6 +268,7 @@ function update() {
 	rotateBall();
 	// rotateScreen();
 	movePlayer();
+	chargeSpike();
 	moveEnemy();
 	updatePaddlePOV();
 	containBall();

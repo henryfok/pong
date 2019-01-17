@@ -71,6 +71,7 @@ function containBall() {
 		// ball.ballSpeed += 1;
 		if (scoreEnemy.value !== scoreMax) {
 			playEnemyScoreSound();
+			dischargeSpike();
 			resetBall();
 		}
 		// ball.x = 0;
@@ -82,6 +83,7 @@ function containBall() {
 		// ball.ballSpeed += 1;
 		if (scorePlayer.value !== scoreMax) {
 			playPlayerScoreSound();
+			dischargeSpike();
 			resetBall();
 		}
 		// ball.x = gameWidth - ball.width;
