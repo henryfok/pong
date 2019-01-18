@@ -72,6 +72,7 @@ function paddleSpike() {
 	} else if (paddlePlayer.x > 0) {
 		paddlePlayer.x -= 25;
 		if (paddlePlayer.x < 50) {
+			document.querySelector('.paddle-player').style.background = '#33FF55';
 			paddlePlayer.spike = false;
 		}
 	}

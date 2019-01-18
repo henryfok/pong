@@ -24,8 +24,9 @@ var ball = {
 function randBallStart() {
 	var randAng = getRandomArbitrary(-50, 50);
 	console.log('Start angle: ' + randAng);
-	ball.vx = Math.cos(degToRad(randAng)) * ballSpeedStart;
-	ball.vy = -(Math.sin(degToRad(randAng)) * ballSpeedStart);
+	ballSpeed = ballSpeedStart;
+	ball.vx = Math.cos(degToRad(randAng)) * ballSpeed;
+	ball.vy = -(Math.sin(degToRad(randAng)) * ballSpeed);
 }
 
 function startBall() {
@@ -95,10 +96,16 @@ function checkCollisions() {
 	if (aabbCollisionDetect(ball, paddlePlayer)) {
 		paddlePlayer.hasHit = true;
 		paddleEnemy.hasHit = false;
-		ball.x = paddlePlayer.x + paddlePlayer.width + 0.5;
+
 		if (paddlePlayer.spike === true) {
+			playPaddleSpikeSound();
 			paddlePlayer.spike = false;
 			ballSpeed *= 2;
+			ball.x = paddlePlayer.x + paddlePlayer.width + 100;
+		} else {
+			playPaddleHitSound();
+			ball.x = paddlePlayer.x + paddlePlayer.width + 0.5;
+			flashPaddle('.paddle-player');
 		}
 		
 		// extend paddle length by 20% before map as player rarely hits the ball on the paddle edge
@@ -116,8 +123,6 @@ function checkCollisions() {
 			ball.vx = ballSpeed;
 			ball.vy = 0;
 		}
-		playPaddleHitSound();
-		flashPaddle('.paddle-player');
 	}
 
 	if (aabbCollisionDetect(ball, paddleEnemy)) {

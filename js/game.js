@@ -120,10 +120,18 @@ function addEventListeners() {
 
 function chargeSpike() {
 	if (paddlePlayer.charging === true && paddlePlayer.spikeCharge < 1) {
+		paddlePlayer.speed = paddleSpeed * Math.min(1, (1.1 - paddlePlayer.spikeCharge));
 		paddlePlayer.spikeCharge += 0.01;
+		if (paddlePlayer.spikeCharge > 0.8) {
+			document.querySelector('.paddle-player').style.background = '#FFF';
+		} else {
+			document.querySelector('.paddle-player').style.background = '#33FF55';
+		}
 		document.querySelector('.spike-charge').style.transform = 'scaleX(' + paddlePlayer.spikeCharge + ')';
 	} else if (paddlePlayer.charging === false && paddlePlayer.spikeCharge > 0) {
-		paddlePlayer.spikeCharge -= 0.05;;
+		document.querySelector('.paddle-player').style.background = '#33FF55';
+		paddlePlayer.speed = paddleSpeed;
+		paddlePlayer.spikeCharge -= 0.1;;
 		document.querySelector('.spike-charge').style.transform = 'scaleX(' + paddlePlayer.spikeCharge + ')';
 	}
 }
@@ -169,6 +177,7 @@ function checkWinState() {
 		console.log('Player win');
 		playPlayerWinSound();
 		cancelAnimationFrame(loopReq);
+		chargeSpike();
 		stopBall();
 		
 		document.querySelector('.results-title').innerHTML = "You win!";
@@ -185,6 +194,7 @@ function checkWinState() {
 		console.log('Enemy win');
 		playEnemyWinSound();
 		cancelAnimationFrame(loopReq);
+		chargeSpike();
 		stopBall();
 		
 		document.querySelector('.results-title').innerHTML = "You lose";
